@@ -175,9 +175,55 @@
 #define TIM_SR1_CC1IF (1 << 1)
 #define TIM_SR1_UIF (1 << 0)
 
-/* AWU */
 #define __IO volatile
 
+/* Timer */
+typedef struct TIM4_struct {
+  __IO unsigned char CR1;  /*!< control register 1 */
+  __IO unsigned char CR2;  /*!< control register 2 */
+  __IO unsigned char SMCR;  /*!< Synchro mode control register */
+  __IO unsigned char IER;  /*!< interrupt enable register  */
+  __IO unsigned char SR1;  /*!< status register 1    */
+  __IO unsigned char EGR;  /*!< event generation register */
+  __IO unsigned char CNTR;  /*!< counter register  */
+  __IO unsigned char PSCR;  /*!< prescaler register */
+  __IO unsigned char ARR;  /*!< auto-reload register */
+} TIM4_TypeDef;
+
+typedef struct TIM_struct {
+  __IO unsigned char CR1;  /*!< control register 1   */
+  __IO unsigned char CR2;  /*!< control register 2   */
+  __IO unsigned char SMCR;  /*!< Synchro mode control register */
+  __IO unsigned char ETR;  /*!< external trigger register */
+  __IO unsigned char IER;  /*!< interrupt enable register*/
+  __IO unsigned char SR1;  /*!< status register 1   */
+  __IO unsigned char SR2;  /*!< status register 2   */
+  __IO unsigned char EGR;  /*!< event generation register */
+  __IO unsigned char CCMR1;  /*!< CC mode register 1      */
+  __IO unsigned char CCMR2;  /*!< CC mode register 2      */
+  __IO unsigned char CCER1;  /*!< CC enable register 1     */
+  __IO unsigned char CNTRH;  /*!< counter high       */
+  __IO unsigned char CNTRL;  /*!< counter low       */
+  __IO unsigned char PSCR;  /*!< prescaler     */
+  __IO unsigned char ARRH;  /*!< auto-reload register high  */
+  __IO unsigned char ARRL;  /*!< auto-reload register low    */
+  __IO unsigned char CCR1H;  /*!< capture/compare register 1 high   */
+  __IO unsigned char CCR1L;  /*!< capture/compare register 1 low     */
+  __IO unsigned char CCR2H;  /*!< capture/compare register 2 high   */
+  __IO unsigned char CCR2L;  /*!< capture/compare register 2 low     */
+  __IO unsigned char BKR;  /*!< Break Register */
+  __IO unsigned char OISR;  /*!< Output idle register */
+} TIM_TypeDef;
+
+#define TIM2_BaseAddress        0x5250
+#define TIM3_BaseAddress        0x5280
+#define TIM4_BaseAddress        0x52E0
+
+#define TIM2 ((TIM_TypeDef *) TIM2_BaseAddress)
+#define TIM3 ((TIM_TypeDef *) TIM3_BaseAddress)
+#define TIM4 ((TIM4_TypeDef *) TIM4_BaseAddress)
+
+/* AWU */
 typedef struct AWU_struct {
   __IO unsigned char CSR; /* AWU Control status register */
   __IO unsigned char APR; /* AWU Asynchronous prescalar buffer */
@@ -208,4 +254,10 @@ typedef struct CLK_struct {
 #define CLK_BaseAddress         0x50C0
 #define CLK ((CLK_TypeDef *) CLK_BaseAddress)
 
+#define CLK_PCKENR_TIM2  ((unsigned char)0x01) /*!< Peripheral Clock Enable 1, TIM2 */
+#define CLK_PCKENR_TIM3  ((unsigned char)0x02) /*!< Peripheral Clock Enable 1, TIM3 */
+#define CLK_PCKENR_TIM4  ((unsigned char)0x04) /*!< Peripheral Clock Enable 1, TIM4 */
+#define CLK_PCKENR_I2C     ((unsigned char)0x08) /*!< Peripheral Clock Enable 1, I2C */
+#define CLK_PCKENR_SPI     ((unsigned char)0x10) /*!< Peripheral Clock Enable 1, SPI */
+#define CLK_PCKENR_USART   ((unsigned char)0x20) /*!< Peripheral Clock Enable 1, USART */
 #define CLK_PCKENR_AWU     ((unsigned char)0x40) /*!< Peripheral Clock Enable 1, AWU */
