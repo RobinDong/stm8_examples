@@ -320,8 +320,24 @@ INTERRUPT_HANDLER(USART_RX_IRQHandler, 28)
   * @param  None
   * @retval None
   */
+void myDelay(__IO uint32_t nCount) {
+    for (; nCount != 0; nCount--);
+}
+
+void my_toggle_led(void) {
+    while (1) {
+        GPIOC->DDR = 0xFF;
+        GPIOC->CR1 = 0xFF;
+        GPIOC->ODR = 0xFF;
+        myDelay(10000);
+        GPIOC->ODR = 0x00;
+        myDelay(10000);
+    }
+}
+
 INTERRUPT_HANDLER(I2C_IRQHandler, 29)
 {
+  GPIOC->ODR = 0x00;
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */

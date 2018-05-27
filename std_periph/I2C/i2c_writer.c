@@ -76,7 +76,6 @@ void toggle_led(void) {
  */
 void main()
 {
-    toggle_led();
     /* I2C  clock Enable*/
     CLK_PeripheralClockConfig(CLK_Peripheral_I2C, ENABLE);
 
@@ -93,7 +92,7 @@ void main()
              I2C_DutyCycle_2, I2C_Ack_Enable, I2C_AcknowledgedAddress_7bit);
 
     /* Enable Buffer and Event Interrupt*/
-    I2C_ITConfig((I2C_IT_TypeDef)(I2C_IT_EVT | I2C_IT_BUF) , ENABLE);
+    I2C_ITConfig((I2C_IT_TypeDef)(I2C_IT_ERR | I2C_IT_EVT | I2C_IT_BUF) , ENABLE);
 
     enableInterrupts();
 
@@ -103,13 +102,15 @@ void main()
 
     /* Send START condition */
     I2C_GenerateSTART(ENABLE);
+    GPIOC->DDR = 0xFF;
+    GPIOC->CR1 = 0xFF;
+    GPIOC->ODR = 0xFF;
     while (NumOfBytes);
+    GPIOC->ODR = 0x00;
     while (I2C_GetFlagStatus(I2C_FLAG_BUSY));
 
     /* Add a delay to be sure that communication is finished */
     Delay(0xFFFF);
-    GPIOC->ODR = 0x00;
-
 
     /*****  reception phase ***/
     /*  Wait while the bus is busy */
