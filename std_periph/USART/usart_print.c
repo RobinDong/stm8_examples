@@ -65,10 +65,10 @@ void main(void)
     USART_Config();
     
     /* Output a message on Hyperterminal using printf function */
-    printf("\n\rUSART Example: retarget the C library printf function to the USART\n\r");
 
-    while (1)
-    {}
+    while (1) {
+        printf("\n\rUSART Example: retarget the C library printf function to the USART\n\r");
+    }
 }
 
 /**
@@ -90,13 +90,13 @@ static void USART_Config(void)
     USART_DeInit();
     /* USART configuration ------------------------------------------------------*/
     /* USART configured as follow:
-          - BaudRate = 115200 baud  
+          - BaudRate = 300 baud 
           - Word Length = 8 Bits
           - One Stop Bit
           - No parity
           - Receive and transmit enabled
     */
-     USART_Init((uint32_t)115200, USART_WordLength_8D, USART_StopBits_1,
+     USART_Init((uint32_t)300, USART_WordLength_8D, USART_StopBits_1,
                 USART_Parity_No, (USART_Mode_TypeDef)(USART_Mode_Rx | USART_Mode_Tx));
 }
 
