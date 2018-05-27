@@ -14,7 +14,7 @@ clean:
 	rm -f *.ihx *.cdb *.asm *.lk *.lst *.map *.rel *.rst *.sym
 
 flash:
-	stm8flash -c stlinkv2 -p stm8l101f3 -w usart.ihx
+	stm8flash -c stlinkv2 -p stm8l101f3 -w usart_print.ihx
 
 gpio.rel: ../library/src/stm8l10x_gpio.c
 	$(SDCC) $(ARCH) $< $(INC) $(CFLAGS) -c -o $@
